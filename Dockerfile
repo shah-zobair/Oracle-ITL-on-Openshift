@@ -2,7 +2,7 @@ FROM oc_base
 
 MAINTAINER Shah Zobair <szobair@redhat.com>
 
-
+USER 0
 #######################################
 #
 # folders located outside the container to get necessary dependencies
