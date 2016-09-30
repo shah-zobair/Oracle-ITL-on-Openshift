@@ -1,0 +1,99 @@
+FROM registry.access.redhat.com/rhel7.2
+
+MAINTAINER Shah Zobair <szobair@redhat.com>
+
+LABEL \
+      # Location of the STI scripts inside the image.
+      io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
+      # DEPRECATED: This label will be kept here for backward compatibility.
+      io.s2i.scripts-url=image:///usr/libexec/s2i \
+      # Labels consumed by Red Hat build service.
+      BZComponent="openshift-sti-base-docker" \
+      Name="openshift3/sti-base" \
+      Version="1.0" \
+      Release="1" \
+      Architecture="x86_64"
+
+USER 0
+#######################################
+#
+# Creating ncessary environment for Oracle Universal Installer
+#
+RUN groupadd oracle && mkdir /tmp/ora && chmod -R 777 /tmp/ora && \
+    echo 'inventory_loc=/tmp/ora' > /etc/oraInst.loc && echo 'inst_group=oracle' >> /etc/oraInst.loc
+
+
+#######################################
+#
+# folders located outside the container to get necessary dependencies
+#
+ENV REMOTE_PACKAGES_PATH=installables \
+    REMOTE_SCRIPTS_PATH=scripts \
+    REMOTE_SUPPORTS_PATH=support \
+
+# folders for copying dependencies into initially
+    BASE_CONTAINER_TMP_PATH=/tmp/endeca \
+
+# folders for final installation of endeca programs
+    BASE_INSTALL_PATH=/apps/opt/weblogic \
+    BASE_ENDECA_PATH=$BASE_INSTALL_PATH/endeca \
+    BASE_INSTALL_CUSTOM_SCRIPT_PATH=$BASE_ENDECA_PATH/bin
+
+#######################################
+# install necessary OS packages
+#
+RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
+    yum --disablerepo='*' --enablerepo=epel --enablerepo=rhel-7-server-rpms --enablerepo=rhel-7-server-extras-rpms --enablerepo=rhel-7-server-optional-rpms install openssh-server openssh-clients epel-release wget nc pwgen which libaio glibc.i687 sudo tar unzip.x86_64 openssl hostname -y && \
+    yum --disablerepo='*' --enablerepo=epel --enablerepo=rhel-7-server-rpms --enablerepo=rhel-7-server-extras-rpms --enablerepo=rhel-7-server-optional-rpms clean all
+
+# Creating SSH Keys for endeca
+RUN rm -f /etc/ssh/ssh_host_ecdsa_key /etc/ssh/ssh_host_rsa_key && \
+    ssh-keygen -q -N "" -t dsa -f /etc/ssh/ssh_host_ecdsa_key && \
+    ssh-keygen -q -N "" -t rsa -f /etc/ssh/ssh_host_rsa_key && \
+    sed -i "s/#UsePrivilegeSeparation.*/UsePrivilegeSeparation no/g" /etc/ssh/sshd_config && \
+    sed -i "s/UsePAM.*/UsePAM yes/g" /etc/ssh/sshd_config
+
+#######################################
+# create directories for copying initial endeca packages
+RUN mkdir -m 0777 -p $BASE_CONTAINER_TMP_PATH && \
+    mkdir -m 0777 -p $BASE_INSTALL_CUSTOM_SCRIPT_PATH
+
+# directory for final install of endeca
+#RUN chmod 755 /opt/endeca/bin/*.sh
+
+# Directory for CAS Appl
+
+#######################################
+# Copy remote packages to local temp path
+COPY ["$REMOTE_PACKAGES_PATH/", "$BASE_CONTAINER_TMP_PATH/"]
+
+#######################################
+# Copy script that creates unique password for root and other scripts
+#
+ADD $REMOTE_SCRIPTS_PATH/setupEndecaUser.sh $BASE_CONTAINER_TMP_PATH/setupEndecaUser.sh
+
+#######################################
+# Set scripts to be executable
+RUN chmod +x $BASE_CONTAINER_TMP_PATH/*.sh $BASE_CONTAINER_TMP_PATH/*.bin
+
+#######################################
+# Copy silent install scripts
+#
+ADD $REMOTE_SUPPORTS_PATH/platformservices-silent.txt $BASE_CONTAINER_TMP_PATH/platformservices-silent.txt
+
+#######################################
+#
+ADD $REMOTE_SCRIPTS_PATH/start.sh /start.sh
+
+#######################################
+#
+ADD $REMOTE_SCRIPTS_PATH/run.sh /run.sh
+
+#######################################
+#
+ADD $REMOTE_SCRIPTS_PATH/set_root_pw.sh /set_root_pw.sh
+
+#######################################
+#Run commands to create endeca user and modify sudoers
+#
+RUN $BASE_CONTAINER_TMP_PATH/setupEndecaUser.sh
