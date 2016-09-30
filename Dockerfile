@@ -7,9 +7,9 @@ USER 0
 #
 # folders located outside the container to get necessary dependencies
 #
-ENV REMOTE_PACKAGES_PATH=installables \
-    REMOTE_SCRIPTS_PATH=scripts \
-    REMOTE_SUPPORTS_PATH=support
+ENV REMOTE_PACKAGES_PATH=installables
+ENV REMOTE_SCRIPTS_PATH=scripts
+ENV REMOTE_SUPPORTS_PATH=support
 
 # folders for copying dependencies into initially
 ENV BASE_CONTAINER_TMP_PATH=/tmp/endeca
@@ -54,10 +54,10 @@ ENV VERSION=11.1.0 \
 
 
 #Environment variables required to run the Endeca Platform Services software.
-ENV ENDECA_ROOT=$BASE_ENDECA_PATH/PlatformServices/11.1.0 \
-    PERLLIB=$ENDECA_ROOT/lib/perl:$ENDECA_ROOT/lib/perl/Control:$ENDECA_ROOT/perl/lib:$ENDECA_ROOT/perl/lib/site_perl:$PERLLIB \
-    PERL5LIB=$ENDECA_ROOT/lib/perl:$ENDECA_ROOT/lib/perl/Control:$ENDECA_ROOT/perl/lib:$ENDECA_ROOT/perl/lib/site_perl:$PERL5LIB \
-    ENDECA_CONF=$BASE_ENDECA_PATH/PlatformServices/workspace
+ENV ENDECA_ROOT=$BASE_ENDECA_PATH/PlatformServices/11.1.0
+ENV PERLLIB=$ENDECA_ROOT/lib/perl:$ENDECA_ROOT/lib/perl/Control:$ENDECA_ROOT/perl/lib:$ENDECA_ROOT/perl/lib/site_perl:$PERLLIB
+ENV PERL5LIB=$ENDECA_ROOT/lib/perl:$ENDECA_ROOT/lib/perl/Control:$ENDECA_ROOT/perl/lib:$ENDECA_ROOT/perl/lib/site_perl:$PERL5LIB
+ENV ENDECA_CONF=$BASE_ENDECA_PATH/PlatformServices/workspace
 
 #  ENDECA_REFERENCE_DIR points to the directory the reference implementations
 #  are installed in.  It is not required to run any Oracle Commerce software.
