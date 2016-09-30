@@ -9,13 +9,13 @@ USER 0
 #
 ENV REMOTE_PACKAGES_PATH=installables \
     REMOTE_SCRIPTS_PATH=scripts \
-    REMOTE_SUPPORTS_PATH=support \
+    REMOTE_SUPPORTS_PATH=support
 
 # folders for copying dependencies into initially
-ENV BASE_CONTAINER_TMP_PATH /tmp/endeca
+ENV BASE_CONTAINER_TMP_PATH=/tmp/endeca
 
 # folders for final installation of endeca programs
-    BASE_INSTALL_PATH=/apps/opt/weblogic \
+ENV BASE_INSTALL_PATH=/apps/opt/weblogic \
     BASE_ENDECA_PATH=$BASE_INSTALL_PATH/endeca \
     BASE_INSTALL_CUSTOM_SCRIPT_PATH=$BASE_ENDECA_PATH/bin
 
@@ -50,17 +50,18 @@ ENV VERSION=11.1.0 \
     BUILD_VERSION=11.1.0.842407 \
     ARCH_OS=x86_64pc-linux \
     PRODUCT=IAP \
-    ENDECA_INSTALL_BASE=$BASE_ENDECA_PATH \
+    ENDECA_INSTALL_BASE=$BASE_ENDECA_PATH
 
-#  Environment variables required to run the Endeca Platform Services software.
-    ENDECA_ROOT=$BASE_ENDECA_PATH/PlatformServices/11.1.0 \
+
+#Environment variables required to run the Endeca Platform Services software.
+ENV ENDECA_ROOT=$BASE_ENDECA_PATH/PlatformServices/11.1.0 \
     PERLLIB=$ENDECA_ROOT/lib/perl:$ENDECA_ROOT/lib/perl/Control:$ENDECA_ROOT/perl/lib:$ENDECA_ROOT/perl/lib/site_perl:$PERLLIB \
     PERL5LIB=$ENDECA_ROOT/lib/perl:$ENDECA_ROOT/lib/perl/Control:$ENDECA_ROOT/perl/lib:$ENDECA_ROOT/perl/lib/site_perl:$PERL5LIB \
-    ENDECA_CONF=$BASE_ENDECA_PATH/PlatformServices/workspace \
+    ENDECA_CONF=$BASE_ENDECA_PATH/PlatformServices/workspace
 
 #  ENDECA_REFERENCE_DIR points to the directory the reference implementations
 #  are installed in.  It is not required to run any Oracle Commerce software.
-   ENDECA_REFERENCE_DIR=$BASE_ENDECA_PATH/PlatformServices/reference \
+ENV   ENDECA_REFERENCE_DIR=$BASE_ENDECA_PATH/PlatformServices/reference
 
 #######################################
 # install Tools and Frameworks
@@ -69,7 +70,7 @@ ENV VERSION=11.1.0 \
 
 #ENV ENDECA_TOOLS_ROOT $BASE_INSTALL_PATH/ToolsAndFrameworks/11.1.0
 #ENV ENDECA_TOOLS_CONF $BASE_INSTALL_PATH/ToolsAndFrameworks/11.1.0/server/workspace
-    ENDECA_TOOLS_ROOT=$BASE_ENDECA_PATH/ToolsAndFrameworks/11.1.0 \
+ENV ENDECA_TOOLS_ROOT=$BASE_ENDECA_PATH/ToolsAndFrameworks/11.1.0 \
     ENDECA_TOOLS_CONF=$BASE_ENDECA_PATH/ToolsAndFrameworks/11.1.0/server/workspace
 
 #Tools And Frameworks install
