@@ -121,5 +121,6 @@ RUN chmod 777 /start.sh && \
     chmod 777 /run.sh && \
     chmod 777 /set_root_pw.sh && \
     /start.sh
+RUN mv $BASE_INSTALL_PATH/endeca $BASE_INSTALL_PATH/endeca-install && mkdir -m 0777 -p $BASE_INSTALL_PATH/endeca
 
 CMD ["/run.sh"]
