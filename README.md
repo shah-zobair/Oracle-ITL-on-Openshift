@@ -1,4 +1,4 @@
-# Oracle ITL and MDEX on Openshift
+# Oracle ITL and MDEX on OpenShift
 
 
 Oracle ITL 11.1.0
@@ -13,7 +13,7 @@ Oracle CAS (Content Acquisition System) 11.1.0
 
 
 1) Build the base image on docker with Dockerfile.base which requires some supporting files(scripts,tools,support,installables). 
-2) Tag the base image
+2) Tag the base image (Use OpenShift internal registry IP and Port)
 ```
 docker tag oc_base 172.30.144.230:5000/openshift/oc_base
 ```
