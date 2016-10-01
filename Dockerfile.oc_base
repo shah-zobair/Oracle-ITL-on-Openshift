@@ -2,17 +2,17 @@ FROM registry.access.redhat.com/rhel7.2
 
 MAINTAINER Shah Zobair <szobair@redhat.com>
 
-LABEL \
+#LABEL \
       # Location of the STI scripts inside the image.
-      io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
+#      io.openshift.s2i.scripts-url=image:///usr/libexec/s2i \
       # DEPRECATED: This label will be kept here for backward compatibility.
-      io.s2i.scripts-url=image:///usr/libexec/s2i \
+#      io.s2i.scripts-url=image:///usr/libexec/s2i \
       # Labels consumed by Red Hat build service.
-      BZComponent="openshift-sti-base-docker" \
-      Name="openshift3/sti-base" \
-      Version="1.0" \
-      Release="1" \
-      Architecture="x86_64"
+#      BZComponent="openshift-sti-base-docker" \
+#      Name="openshift3/sti-base" \
+#      Version="1.0" \
+#      Release="1" \
+#      Architecture="x86_64"
 
 USER 0
 #######################################
