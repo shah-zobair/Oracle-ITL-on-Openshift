@@ -15,6 +15,12 @@ MAINTAINER Shah Zobair <szobair@redhat.com>
 #      Architecture="x86_64"
 
 USER 0
+
+ENV http_proxy=http://proxy.ebiz.verizon.com:80/ \
+    HTTP_PROXY=http://proxy.ebiz.verizon.com:80/ \
+    https_proxy=http://proxy.ebiz.verizon.com:80/ \
+    HTTPS_PROXY=http://proxy.ebiz.verizon.com:80/ \
+    no_proxy=instance-data,169.254.169.254,.ocpawse.ebiz.verizon.com,.elb.amazonaws.com,.verizon.com,.ebiz.verizon.com
 #######################################
 #
 # Creating ncessary environment for Oracle Universal Installer
@@ -42,9 +48,10 @@ ENV REMOTE_PACKAGES_PATH=installables \
 #######################################
 # install necessary OS packages
 #
-RUN yum install -y https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm && \
-    yum --disablerepo='*' --enablerepo=epel --enablerepo=rhel-7-server-rpms --enablerepo=rhel-7-server-extras-rpms --enablerepo=rhel-7-server-optional-rpms install openssh-server openssh-clients epel-release wget nc pwgen which libaio glibc.i687 sudo tar unzip.x86_64 openssl hostname -y && \
-    yum --disablerepo='*' --enablerepo=epel --enablerepo=rhel-7-server-rpms --enablerepo=rhel-7-server-extras-rpms --enablerepo=rhel-7-server-optional-rpms clean all
+ADD $REMOTE_PACKAGES_PATH/pwgen-2.07-1.el7.x86_64.rpm $BASE_CONTAINER_TMP_PATH/pwgen-2.07-1.el7.x86_64.rpm
+RUN yum --disablerepo='*' --enablerepo=rhel-7-server-rpms install openssh-server openssh-clients epel-release wget nc pwgen which libaio glibc.i687 sudo tar unzip.x86_64 openssl hostname -y && \
+    yum --disablerepo='*' --enablerepo=rhel-7-server-rpms clean all && \
+    rpm -ivh $BASE_CONTAINER_TMP_PATH/pwgen-2.07-1.el7.x86_64.rpm
 
 # Creating SSH Keys for endeca
 RUN rm -f /etc/ssh/ssh_host_ecdsa_key /etc/ssh/ssh_host_rsa_key && \
