@@ -80,7 +80,9 @@ ENV ENDECA_TOOLS_ROOT=$BASE_ENDECA_PATH/ToolsAndFrameworks/11.1.0 \
     ENDECA_TOOLS_CONF=$BASE_ENDECA_PATH/ToolsAndFrameworks/11.1.0/server/workspace
 
 #Tools And Frameworks install
-RUN chmod -R 777 $BASE_INSTALL_PATH
+RUN chmod -R 777 $BASE_INSTALL_PATH && \
+    chmod -R 777 $BASE_CONTAINER_TMP_PATH
+
 USER endeca
 
 RUN $BASE_CONTAINER_TMP_PATH/cd/Disk1/install/silent_install.sh $BASE_CONTAINER_TMP_PATH/cd/Disk1/install/silent_response.rsp ToolsAndFrameworks $BASE_ENDECA_PATH/ToolsAndFrameworks admin
