@@ -99,7 +99,7 @@ RUN echo $CAS_PORT > $BASE_CONTAINER_TMP_PATH/cas-silent.txt && \
     echo $CAS_SHUTDOWN_PORT >> $BASE_CONTAINER_TMP_PATH/cas-silent.txt && \
     echo $CAS_HOST >> $BASE_CONTAINER_TMP_PATH/cas-silent.txt
 
-USER root
+USER 0
 RUN chmod -R 777 $BASE_INSTALL_PATH
 #RUN mkdir -m 0777 -p /apps/opt/weblogic
 RUN $BASE_CONTAINER_TMP_PATH/OCcas11.1.0-Linux64.sh --silent --target $BASE_INSTALL_PATH < $BASE_CONTAINER_TMP_PATH/cas-silent.txt
@@ -115,7 +115,7 @@ RUN mkdir $BASE_INSTALL_PATH/endeca/apps
 
 #######################################
 # install is done start cleanup to remove initial packages
-USER root
+USER 0
 RUN rm -rf $BASE_CONTAINER_TMP_PATH
 
 ENV AUTHORIZED_KEYS **None**
@@ -132,3 +132,4 @@ RUN chmod 777 /start.sh && \
 RUN mv $BASE_INSTALL_PATH/endeca $BASE_INSTALL_PATH/endeca-install && mkdir -m 0777 -p $BASE_INSTALL_PATH/endeca
 
 CMD ["/run.sh"]
+ENTRYPOINT [ "sh" , "-c" ]
