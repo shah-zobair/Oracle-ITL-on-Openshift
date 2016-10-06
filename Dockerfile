@@ -4,11 +4,6 @@ MAINTAINER Shah Zobair <szobair@redhat.com>
 
 USER 0
 
-ENV http_proxy=http://proxy.ebiz.verizon.com:80/ \
-    HTTP_PROXY=http://proxy.ebiz.verizon.com:80/ \
-    https_proxy=http://proxy.ebiz.verizon.com:80/ \
-    HTTPS_PROXY=http://proxy.ebiz.verizon.com:80/ \
-    no_proxy=instance-data,169.254.169.254,.ocpawse.ebiz.verizon.com,.elb.amazonaws.com,.verizon.com,.ebiz.verizon.com
 #######################################
 #
 # folders located outside the container to get necessary dependencies
