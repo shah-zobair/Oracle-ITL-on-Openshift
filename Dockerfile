@@ -35,12 +35,6 @@ ENV BASE_INSTALL_PATH=/apps/opt/weblogic \
 # Install mdex 6.5.1
 #USER endeca
 
-ENV http_proxy=http://proxy.ebiz.verizon.com:80/ \
-    HTTP_PROXY=http://proxy.ebiz.verizon.com:80/ \
-    https_proxy=http://proxy.ebiz.verizon.com:80/ \
-    HTTPS_PROXY=http://proxy.ebiz.verizon.com:80/ \
-    no_proxy=instance-data,169.254.169.254,.ocpawse.ebiz.verizon.com,.elb.amazonaws.com,.verizon.com,.ebiz.verizon.com
-
 
 RUN $BASE_CONTAINER_TMP_PATH/OCmdex6.5.1-Linux64_829811.sh --silent --target $BASE_INSTALL_PATH && \
     touch /home/endeca/.bashrc && \
