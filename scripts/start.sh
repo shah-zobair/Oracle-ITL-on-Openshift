@@ -36,7 +36,11 @@ echo '17000' >> /tmp/search.rsp
 echo '17002' >> /tmp/search.rsp
 echo '17010' >> /tmp/search.rsp
 echo '' >> /tmp/search.rsp
+<<<<<<< HEAD
 #echo '/apps/opt/weblogic/endeca/ToolsAndFrameworks/11.1.0/deployment_template/lib/../../server/workspace/credential_store/jps-config.xml' >> /tmp/search.rsp
+=======
+echo '/apps/opt/weblogic/endeca/ToolsAndFrameworks/11.1.0/deployment_template/lib/../../server/workspace/credential_store/jps-config.xml' >> /tmp/search.rsp
+>>>>>>> ae61428019a9338f99ee92e942ee99126b2b4c1e
 echo '/apps/opt/weblogic/endeca/ToolsAndFrameworks/11.1.0/deployment_template/lib/../../server/workspace/state/repository' >> /tmp/search.rsp
 echo '' >> /tmp/search.rsp
 
@@ -45,6 +49,7 @@ echo "Running the Search App Wizard now"
 
 /apps/opt/weblogic/endeca/ToolsAndFrameworks/11.1.0/deployment_template/bin/deploy.sh --app /apps/opt/weblogic/endeca/ToolsAndFrameworks/11.1.0/reference/discover-data/deploy.xml < /tmp/search.rsp
 
+<<<<<<< HEAD
 sleep 60
 
 /apps/opt/weblogic/endeca/PlatformServices/11.1.0/tools/server/bin/shutdown.sh
@@ -114,3 +119,8 @@ echo "Shutting Down all Services for fresh start"
 /apps/opt/weblogic/endeca/ToolsAndFrameworks/11.1.0/server/bin/shutdown.sh
 /apps/opt/weblogic/endeca/CAS/11.1.0/bin/cas-service-shutdown.sh
 sleep 10
+=======
+# Initialize the App
+#echo "Initializing the App"
+#/apps/opt/weblogic/endeca/apps/Search/control/initialize_services.sh
+>>>>>>> ae61428019a9338f99ee92e942ee99126b2b4c1e

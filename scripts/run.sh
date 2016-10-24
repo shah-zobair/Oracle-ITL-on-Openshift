@@ -24,6 +24,7 @@
 #fi
 
 # Populate the contents of the PV if the copy is not indicated as done
+<<<<<<< HEAD
 if [ ! -e /apps/opt/weblogic/endeca/.copy_done ]; then
     echo "Copying files to /apps/opt/weblogic/endeca/ for Persistent Storage..."
     echo "Please wait, it will take several minitues"
@@ -42,4 +43,21 @@ su -c "/apps/opt/weblogic/endeca/ToolsAndFrameworks/11.1.0/server/bin/startup.sh
 su -c "/apps/opt/weblogic/endeca/CAS/11.1.0/bin/cas-service.sh &" endeca
 su -c "ping localhost" endeca
 
+=======
+#if [ ! -e /apps/opt/weblogic/endeca/.copy_done ]; then
+#    echo "Copying files to /apps/opt/weblogic/endeca/ for Persistent Storage..."
+#    echo "Please wait, it will take several minitues"
+#    cp -r /apps/opt/weblogic/endeca-install/* /apps/opt/weblogic/endeca/
+#    touch /apps/opt/weblogic/endeca/.copy_done
+#    echo "Finished Copying all files to the Persistent Storage"
+#else
+#    echo "Endeca files already copied."
+#fi
+
+/apps/opt/weblogic/endeca/PlatformServices/11.1.0/tools/server/bin/startup.sh &
+/apps/opt/weblogic/endeca/ToolsAndFrameworks/11.1.0/server/bin/startup.sh &
+#chown -R endeca /apps/opt/weblogic/endeca
+
+/apps/opt/weblogic/endeca/CAS/11.1.0/bin/cas-service.sh
+>>>>>>> ae61428019a9338f99ee92e942ee99126b2b4c1e
 #exec /usr/sbin/sshd -D

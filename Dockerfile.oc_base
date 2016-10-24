@@ -15,6 +15,11 @@ MAINTAINER Shah Zobair <szobair@redhat.com>
 #      Architecture="x86_64"
 
 USER 0
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> ae61428019a9338f99ee92e942ee99126b2b4c1e
 #######################################
 #
 # Creating ncessary environment for Oracle Universal Installer

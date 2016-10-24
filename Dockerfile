@@ -34,6 +34,10 @@ ENV BASE_INSTALL_PATH=/apps/opt/weblogic \
 #######################################
 # Install mdex 6.5.1
 #USER endeca
+<<<<<<< HEAD
+=======
+
+>>>>>>> ae61428019a9338f99ee92e942ee99126b2b4c1e
 
 RUN $BASE_CONTAINER_TMP_PATH/OCmdex6.5.1-Linux64_829811.sh --silent --target $BASE_INSTALL_PATH && \
     touch /home/endeca/.bashrc && \
@@ -125,19 +129,33 @@ RUN rm -rf $BASE_CONTAINER_TMP_PATH
 #RUN rm -f /start.sh /run.sh
 ADD $REMOTE_SCRIPTS_PATH/start.sh /tmp/start.sh
 ADD $REMOTE_SCRIPTS_PATH/run.sh /tmp/run.sh
+<<<<<<< HEAD
 ADD $REMOTE_SCRIPTS_PATH/environment.properties /tmp/environment.properties
+=======
+>>>>>>> ae61428019a9338f99ee92e942ee99126b2b4c1e
 
 #RUN chmod 777 /tmp/start.sh && \
 #    chmod 777 /tmp/run.sh && \
 
+<<<<<<< HEAD
 #USER endeca 
+=======
+#USER endeca
+>>>>>>> ae61428019a9338f99ee92e942ee99126b2b4c1e
 RUN /tmp/start.sh
 ENV AUTHORIZED_KEYS **None**
 EXPOSE 22 8888 8500 8506 8006
 
+<<<<<<< HEAD
 USER 0
 RUN mv $BASE_INSTALL_PATH/endeca $BASE_INSTALL_PATH/endeca-install && mkdir -m 0777 -p $BASE_INSTALL_PATH/endeca
 
 CMD ["/tmp/run.sh"]
 #USER endeca
+=======
+#USER 0
+#RUN mv $BASE_INSTALL_PATH/endeca $BASE_INSTALL_PATH/endeca-install && mkdir -m 0777 -p $BASE_INSTALL_PATH/endeca
+
+CMD ["/tmp/run.sh"]
+>>>>>>> ae61428019a9338f99ee92e942ee99126b2b4c1e
 ENTRYPOINT [ "sh", "-c" ]
