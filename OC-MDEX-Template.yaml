@@ -129,7 +129,7 @@ parameters:
 - description: Maximum amount of memory the container can use.
   displayName: Memory Limit
   name: MEMORY_LIMIT
-  value: 1024Mi
+  value: 4096Mi
 - description: The exposed hostname that will route to the CakePHP service, if left
     blank a value will be defaulted.
   displayName: Application Hostname
@@ -147,7 +147,7 @@ parameters:
 - description: The URL of the repository with your application source code.
   displayName: Git Repository URL
   name: SOURCE_REPOSITORY_URL
-  value: https://onestash.verizon.com/scm/gvv/oracle-itl-on-openshift.git
+  value: https://github.com/shah-zobair/Oracle-ITL-on-Openshift.git
 - description: Set this to a branch name, tag or other ref of your repository if you
     are not using the default branch.
   displayName: Git Reference
